@@ -1,12 +1,14 @@
 from pydantic import BaseModel
 from enum import Enum
+from datetime import datetime 
 
 # Tipo de plantas dados por la tabla de tipos (provisionales)
 class PlantType(str, Enum):
-    seco = "seco"
-    humedo = "humedo"
-    tropical = "tropical"
-
+    hidro = "hidro"
+    solar = "solar"
+    xerofito = "xerofito"
+    montaña = "montaña"
+    Templado = "templado"
 # Recursos para que la planta logre cambiar de estado
 class SourcesNextState(BaseModel):
     water: int
@@ -26,6 +28,7 @@ class PlantStateBase(BaseModel):
     water: int
     prune: int
     time_without_care: int
+    time_last_care: datetime
     sources_next_state: SourcesNextState
 
 # Modelo para la respuesta del estado de la planta
