@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from enum import Enum
 from datetime import datetime
+from uuid import UUID
 
 # Tipo de plantas dados por la tabla de tipos (provisionales)
 class PlantType(str, Enum):
@@ -10,12 +11,18 @@ class PlantType(str, Enum):
     montaña = "montaña"
     Templado = "templado"
 
+# State de la planta
+class PlantStage(str, Enum):
+    seed = "seed"
+    bush = "bush"
+    tree = "tree"
+    ent = "ent"
+
 # Recursos para que la planta logre cambiar de estado
 class SourcesNextState(BaseModel):
     water: int
     sun: int
     prune: int
-
 
 # PlantBase      → campos comunes (los que siempre existen)
 # PlantCreate    → lo que Flutter manda al crear (hereda Base)
@@ -23,18 +30,19 @@ class SourcesNextState(BaseModel):
 
 # Modelo base para el estado de la planta
 class PlantStateBase(BaseModel):
-    plant_state: str
+    plant_state: PlantStage = PlantStage.seed
     health: int
     sun: int
     water: int
     prune: int
-    time_without_care: datetime
+    is_dead: bool
+    last_interaction: datetime 
     sources_next_state: SourcesNextState
 
 # Modelo para la respuesta del estado de la planta
 class PlantStateResponse(PlantStateBase):
     id: int
-    plant_id: int
+    plant_id: UUID
 
     class Config:
         from_attributes = True
@@ -48,8 +56,8 @@ class PlantCreate(PlantBase):
     pass
 
 class PlantResponse(PlantBase):
-    id: int
+    id: UUID
     state:PlantStateResponse
 
-    class config:
+    class Config:
         from_attributes = True
