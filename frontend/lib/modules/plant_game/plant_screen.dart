@@ -39,7 +39,16 @@ class PlantGameScreen extends FlameGame {
     final waterButton = Button_resource_water(onPressed: () { });
     final compostButton = Button_resource_compost(onPressed: () { });
     
-
+    final layout = ColumnComponent(
+      children: [
+        RowComponent(
+          children: [helpButton, panelTitle],
+        ),
+        RowComponent(
+          children: [waterGameButton, compostGameButton],
+        ),
+      ],
+    );
 
     final row = RowComponent(
       children: [

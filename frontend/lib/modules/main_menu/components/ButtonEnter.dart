@@ -12,7 +12,11 @@ class ButtonAction extends SpriteButtonComponent {
   late TextComponent textComp;
 
   ButtonAction({required void Function() onPressed})
-      : super(size: Vector2(120, 60), button: null, buttonDown: null, onPressed: onPressed);
+      : super(
+       size: Vector2.zero(),
+       button: null, 
+       buttonDown: null, 
+       onPressed: onPressed);
 
   @override
   Future<void> onLoad() async {
@@ -22,10 +26,16 @@ class ButtonAction extends SpriteButtonComponent {
     button = Sprite(normalImage);
     buttonDown = Sprite(pressedImage);
 
+    size = button.srcSize;
+    scale = Vector2.all(0.5);
+
     textComp = TextComponent(
       text: 'Entrar',
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 18),
+        style: const TextStyle(
+          color: Colors.white, 
+          fontSize: 18),
+          //fontFamily: 'Press Start 2P',
       ),
     )
       ..anchor = Anchor.center
@@ -37,18 +47,18 @@ class ButtonAction extends SpriteButtonComponent {
   @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
-    scale = Vector2.all(0.9);
+    scale = Vector2.all(0.49);
   }
 
   @override
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
-    scale = Vector2.all(1.0);
+    scale = Vector2.all(0.51);
   }
 
   @override
   void onTapCancel(TapCancelEvent event) {
     super.onTapCancel(event);
-    scale = Vector2.all(1.0);
+    scale = Vector2.all(0.51);
   }
 }

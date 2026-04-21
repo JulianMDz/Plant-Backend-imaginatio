@@ -5,7 +5,7 @@ class Button_inventory extends SpriteButtonComponent {
   Button_inventory({
     required void Function() onPressed,
   }) : super(
-          size: Vector2(120, 60),
+          size: Vector2.zero(),
           button: null,       // se inicializa luego
           buttonDown: null,   // se inicializa luego
           onPressed: onPressed,
@@ -16,5 +16,8 @@ class Button_inventory extends SpriteButtonComponent {
     // Cargar sprites aquí
     button = await Sprite.load('Botones/Boton_Inventario_02.png');
     buttonDown = await Sprite.load('Botones/Boton_Inventario_01.png');
+
+    size = button.srcSize;       
+    scale = Vector2.all(0.5);  
   }
 }

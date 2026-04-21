@@ -6,8 +6,10 @@ class Panel_title extends SpriteComponent  {
     // Cargar la imagen
     sprite = await Sprite.load('Paneles/Panel_NombrePlanta_01.png');
 
-    size = Vector2(100,50);
-    // Centrar en pantalla
-    position = (Vector2(100,200) - size) / 2;
+    size = sprite!.srcSize;      
+    scale = Vector2.all(0.5);     
+
+    anchor = Anchor.center;       
+    position = Vector2(size.x / 2, size.y / 2);
   }
 }
