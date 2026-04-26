@@ -1,6 +1,7 @@
 import 'package:flame/layout.dart';
 import 'package:frontend/modules/plant_game/components/Button_Inventary.dart';
 import 'package:frontend/modules/plant_game/components/Button_game_compost.dart';
+import 'package:frontend/modules/plant_game/components/Button_game_sun.dart';
 import 'package:frontend/modules/plant_game/components/Button_game_water.dart';
 import 'package:frontend/modules/plant_game/components/button_resource_compost.dart';
 import 'package:frontend/modules/plant_game/components/button_resource_sun.dart';
@@ -16,9 +17,13 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/widgets.dart';
+import 'package:frontend/modules/plant_game/mini_games/compost/compost_overlay.dart';
+import 'package:frontend/modules/plant_game/mini_games/sun/sun_overlay.dart';
+import 'package:frontend/modules/plant_game/mini_games/water/water_overlay.dart';
 
 
 class PlantGameScreen extends FlameGame {
+
 
   @override
   Future<void> onLoad() async {
@@ -30,13 +35,23 @@ class PlantGameScreen extends FlameGame {
     final panelInfo = Panel_resource_info();
 
     final panelBar = PanelLayout();
+
+    final sunGameButton = Button_sun_game(
+      onPressed: () {
+          add(SunOverlay());
+       })
+    ..anchor = Anchor.centerLeft
+    ..position = Vector2(20, 220);
+
     final waterGameButton = Button_water_game(
       onPressed: () {
-        // Aquí activas el overlay directamente
-        overlays.add('InventaryOverlay');
+        add(WaterOverlay());
       },
     );
-    final compostGameButton = Button_compost_game(onPressed: () { });
+    final compostGameButton = Button_compost_game(
+      onPressed: () {
+        add(CompostOverlay());
+      });
 
     final sunButton = Button_resource_sun(onPressed: () { });
     final waterButton = Button_resource_water(onPressed: () { });
@@ -74,6 +89,8 @@ class PlantGameScreen extends FlameGame {
     );
     add(layout);
 
+    add(sunGameButton);
+
     final columnCenter = ColumnComponent(
       children: [
         panelBar,
@@ -91,7 +108,7 @@ class PlantGameScreen extends FlameGame {
       crossAxisAlignment: CrossAxisAlignment.center,
     )
       ..anchor = Anchor.centerRight
-      ..position = Vector2(size.x-50, size.y / 2); // columna centrada
+      ..position = Vector2(size.x-50, size.y /2); // columna centrada
     add(columnCenter);
 
     final pastoSeed = PlantComponent(
