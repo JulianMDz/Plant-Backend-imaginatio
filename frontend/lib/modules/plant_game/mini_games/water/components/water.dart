@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 class ButtonResourceWater extends PositionComponent with TapCallbacks {
+  late TextComponent textComp;
   late Sprite normal;
   late Sprite pressed;
   late Sprite disabled;
@@ -22,6 +23,8 @@ class ButtonResourceWater extends PositionComponent with TapCallbacks {
 
     size = normal.srcSize / 2;
   }
+
+
 
   @override
   void render(Canvas canvas) {
@@ -56,4 +59,6 @@ class ButtonResourceWater extends PositionComponent with TapCallbacks {
     if (state == 2) return;
     state = 0;
   }
+
+  
 }

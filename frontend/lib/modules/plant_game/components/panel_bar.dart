@@ -12,13 +12,13 @@ Future<void> onLoad() async {
 
     final sprite = SpriteComponent(
       sprite: Sprite(img),
-      size: Sprite(img).srcSize / 2,
+      size: Sprite(img).srcSize / 3,
     );
 
     final barra = BarraCarga(
       fillColor: color,
     )
-      ..size = Vector2(50, 5)
+      ..size = Vector2(40, 5)
       ..progress = progress;
 
     return RowComponent(

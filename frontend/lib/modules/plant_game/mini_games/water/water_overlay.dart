@@ -2,6 +2,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:frontend/modules/plant_game/mini_games/water/components/panel_water.dart';
+import 'package:frontend/modules/plant_game/mini_games/water/components/text_water.dart';
 import 'package:frontend/modules/plant_game/mini_games/water/components/water.dart';
 
 class WaterOverlay extends FlameGame {
@@ -13,6 +14,7 @@ class WaterOverlay extends FlameGame {
 
     add(panelWater());
     add(buttonWater);
+    add(textWater());
   }
 
   @override

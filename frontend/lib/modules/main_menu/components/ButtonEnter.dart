@@ -20,8 +20,8 @@ class ButtonAction extends SpriteButtonComponent {
 
   @override
   Future<void> onLoad() async {
-    final normalImage = await Flame.images.load('Botones/Boton_Accion_01.png');
-    final pressedImage = await Flame.images.load('Botones/Boton_Accion_02.png');
+    final normalImage = await Flame.images.load('Botones/Boton_General_01a.png');
+    final pressedImage = await Flame.images.load('Botones/Boton_General_01b.png');
 
     button = Sprite(normalImage);
     buttonDown = Sprite(pressedImage);

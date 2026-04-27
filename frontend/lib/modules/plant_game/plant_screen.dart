@@ -41,7 +41,7 @@ class PlantGameScreen extends FlameGame {
           add(SunOverlay());
        })
     ..anchor = Anchor.centerLeft
-    ..position = Vector2(20, 220);
+    ..position = Vector2(20, 150);
 
     final waterGameButton = Button_water_game(
       onPressed: () {
@@ -62,7 +62,7 @@ class PlantGameScreen extends FlameGame {
         RowComponent(
           children: [
             PaddingComponent(
-              padding: EdgeInsets.only(right: 40),
+              padding: EdgeInsets.only(right: 10),
               child: helpButton,
             ),
             PaddingComponent(
@@ -70,7 +70,7 @@ class PlantGameScreen extends FlameGame {
               child: panelTitle,
             ),
             PaddingComponent(
-              padding: EdgeInsets.only(left: 40),
+              padding: EdgeInsets.only(left: 10),
               child: inventaryButton,
             ),
           ],
@@ -84,7 +84,7 @@ class PlantGameScreen extends FlameGame {
           children: [panelInfo],
         )
           ..anchor = Anchor.topCenter
-          ..position = Vector2(size.x / 2, 100), // fila arriba centrada
+          ..position = Vector2(size.x / 2, 80), // fila arriba centrada
       ]
     );
     add(layout);
@@ -108,7 +108,7 @@ class PlantGameScreen extends FlameGame {
       crossAxisAlignment: CrossAxisAlignment.center,
     )
       ..anchor = Anchor.centerRight
-      ..position = Vector2(size.x-50, size.y /2); // columna centrada
+      ..position = Vector2(size.x-20, size.y /2-40); // columna centrada
     add(columnCenter);
 
     final pastoSeed = PlantComponent(
@@ -122,11 +122,11 @@ class PlantGameScreen extends FlameGame {
     final rowDown = RowComponent(
       children: [
         PaddingComponent(
-              padding: EdgeInsets.only(right: 60),
+              padding: EdgeInsets.only(right: 40),
               child: sunButton,
             ),
         PaddingComponent(
-              padding: EdgeInsets.only(right: 60),
+              padding: EdgeInsets.only(right: 40),
               child: waterButton,
             ),
         compostButton,

@@ -17,6 +17,6 @@ class Button_resource_compost extends SpriteButtonComponent {
     button = await Sprite.load('Botones/Boton_RecursoAbono_02.png');
     buttonDown = await Sprite.load('Botones/Boton_RecursoAbono_01.png');
 
-    size = button.srcSize/2;  
+    size = button.srcSize/2.5;  
   }
 }
