@@ -14,7 +14,7 @@ class LoginScreen extends FlameGame {
 
   LoginScreen(this.context);
    @override
-  Color backgroundColor() => const Color.fromARGB(255, 60, 67, 17);
+  Color backgroundColor() => const Color.fromARGB(255, 61, 67, 17);
   @override
   Future<void> onLoad() async {
   final panelEnter = PanelEnter()
