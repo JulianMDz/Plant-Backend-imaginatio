@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/input.dart'; // ← Para TapCallbacks
 
 import 'package:frontend/modules/plant_game/mini_games/water/components/panel_water.dart';
 import 'package:frontend/modules/plant_game/mini_games/water/components/text_water.dart';
@@ -106,17 +107,21 @@ class WaterOverlay extends FlameGame {
 // -------------------------------------------------------------
 class WaterAlertComponent extends PositionComponent {
   final String message;
+  double _timeVisible = 0;
+  static const double _autoCloseTime = 2.0;
+  bool _closed = false;
 
   WaterAlertComponent({required this.message, required Vector2 size}) 
     : super(size: size);
 
   @override
   Future<void> onLoad() async {
-    // Fondo oscuro semi-transparente
-    add(RectangleComponent(
+    // Fondo oscuro semi-transparente (se puede tocar para cerrar)
+    final background = RectangleComponent(
       size: size,
       paint: Paint()..color = Colors.black.withOpacity(0.7),
-    ));
+    );
+    add(background);
 
     // Caja de diálogo central
     final dialogSize = Vector2(300, 150);
@@ -124,7 +129,7 @@ class WaterAlertComponent extends PositionComponent {
       size: dialogSize,
       position: size / 2,
       anchor: Anchor.center,
-      paint: Paint()..color = const Color(0xFF1D899F), // Color agua
+      paint: Paint()..color = const Color(0xFF1D899F),
     );
     add(dialog);
 
@@ -134,15 +139,52 @@ class WaterAlertComponent extends PositionComponent {
       position: size / 2,
       anchor: Anchor.center,
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          color: Colors.white, 
+          fontSize: 16, 
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
     add(text);
 
-    // (Opcional) Tocar la pantalla para cerrar
-    // Future.delayed(Duration(seconds: 3), () {
-   
-    //   gameRef.overlays.remove('WaterOverlay');
-    // });
+    // Texto de ayuda
+    final hint = TextComponent(
+      text: 'Toca para cerrar',
+      position: Vector2(size.x / 2, size.y / 2 + 50),
+      anchor: Anchor.center,
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white70, 
+          fontSize: 12,
+        ),
+      ),
+    );
+    add(hint);
+  }
+
+  // Detecta cualquier toque en pantalla
+  @override
+  void onTapCancel() {
+    _closeMinigame();
+  }
+
+  // Cierra automáticamente después de 2 segundos
+  @override
+  void update(double dt) {
+    super.update(dt);
+    
+    if (_closed) return;
+    
+    _timeVisible += dt;
+    if (_timeVisible >= _autoCloseTime) {
+      _closeMinigame();
+    }
+  }
+
+  void _closeMinigame() {
+    if (_closed) return;
+    _closed = true;
+    removeFromParent();
   }
 }
