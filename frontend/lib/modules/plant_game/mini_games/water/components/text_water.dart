@@ -1,12 +1,14 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class textWater extends PositionComponent with HasGameRef {
+class TextWater extends PositionComponent with HasGameRef {
+  late TextBoxComponent tiempoText;
+  late TextBoxComponent tituloText;
+
   @override
   Future<void> onLoad() async {
-
-    // 🔹 Texto pequeño (arriba)
-    final tiempo = TextBoxComponent(
+    // 🔹 Texto de tiempo (arriba)
+    tiempoText = TextBoxComponent(
       text: "5 SEC",
       textRenderer: TextPaint(
         style: const TextStyle(
@@ -18,29 +20,35 @@ class textWater extends PositionComponent with HasGameRef {
       align: Anchor.center,
       anchor: Anchor.center,
       size: Vector2(200, 40),
-      position: Vector2(0, -20), // 👈 arriba
+      position: Vector2(0, -90), // Arriba
     );
 
-    // 🔹 Texto grande (abajo)
-    final titulo = TextBoxComponent(
-      text: "1 | 50",
+    // 🔹 Texto grande de clicks (abajo)
+    tituloText = TextBoxComponent(
+      text: "0 | 50",
       textRenderer: TextPaint(
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 28, // 🔥 más grande
+          fontSize: 26, 
           fontFamily: 'Press Start 2P',
         ),
       ),
       align: Anchor.center,
       anchor: Anchor.center,
       size: Vector2(200, 60),
-      position: Vector2(0, 20), // 👈 abajo
+      position: Vector2(0, 90), // Abajo
     );
 
-    add(tiempo);
-    add(titulo);
+    add(tiempoText);
+    add(tituloText);
+  }
 
-    // 🔥 centro general del bloque
-    position = Vector2(gameRef.size.x / 2, 200);
+  // Métodos para actualizar la UI desde el Game Loop
+  void updateTime(double timeLeft) {
+    tiempoText.text = "${timeLeft.ceil()} SEC";
+  }
+
+  void updateClicks(int clicks) {
+    tituloText.text = "$clicks | 50";
   }
 }
