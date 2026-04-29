@@ -89,7 +89,7 @@ class InventoryScreen extends FlameGame {
         ..sprite = Sprite(
           img,
           srcPosition: Vector2(0, 0),
-          srcSize: Vector2(img.width / 3, img.height.toDouble()),
+          srcSize: Vector2(img.width / 18, img.height.toDouble()),
         )
         ..size = Vector2(plantSize, plantSize)
         ..anchor = Anchor.center
